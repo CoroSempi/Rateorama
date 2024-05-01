@@ -36,25 +36,31 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./Views/dashboard/public")));
 app.set("view engine", "ejs");
-app.use("/favicon.ico", express.static("/Views/dashboard/public/pics/logo.png"));
+app.use(
+  "/favicon.ico",
+  express.static("/Views/dashboard/public/pics/logo.png")
+);
 
 let port = 3000 || process.env.PORT;
 
+app.listen(port, () => {
+  console.log(`SERVER RUN ON PORT ${port}`);
+});
 //Connect to MongoDB using mongoose(ODM)
-mongoose
-  .connect("mongodb://localhost:27017/Rateorama")
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`SERVER RUN ON PORT ${port}`);
-    });
-  })
-  .catch((e) => {
-    console.log(e.message);
-  });
+// mongoose
+//   .connect("mongodb://localhost:27017/Rateorama")
+//   .then(() => {
+//     app.listen(port, () => {
+//       console.log(`SERVER RUN ON PORT ${port}`);
+//     });
+//   })
+//   .catch((e) => {
+//     console.log(e.message);
+//   });
 
-  app.get("/",(req,res)=>{
-    res.status(200).send("finally hello")
-  })
+app.get("/", (req, res) => {
+  res.status(200).send("finally hello");
+});
 
 // async function use() {
 //   try {
