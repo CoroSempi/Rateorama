@@ -6,7 +6,7 @@ const Movies = require("../Models/Movies");
 const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 
 //moviesMain--------------------------------------
 router.get("/", async (req, res) => {

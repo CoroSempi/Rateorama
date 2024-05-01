@@ -20,7 +20,7 @@ const router = express.Router();
 
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname, "../Views/dashboard/public")));
 
 //Admin login

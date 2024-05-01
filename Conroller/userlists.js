@@ -10,7 +10,7 @@ const TVshows = require("../Models/TVshows");
 const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 
 router.post("/favorites", async (req, res) => {
   try {

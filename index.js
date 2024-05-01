@@ -33,16 +33,18 @@ app.use("/profile", profile);
 
 // Middleware for parsing JSON
 app.use(express.json());
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./Views/dashboard/public")));
 app.set("view engine", "ejs");
+
+let port = 3000 || process.env.PORT;
 
 //Connect to MongoDB using mongoose(ODM)
 mongoose
   .connect("mongodb://localhost:27017/Rateorama")
   .then(() => {
-    app.listen(3000, () => {
-      console.log("SERVER RUN ON PORT 3000");
+    app.listen(port, () => {
+      console.log(`SERVER RUN ON PORT ${port}`);
     });
   })
   .catch((e) => {

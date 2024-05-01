@@ -6,6 +6,6 @@ const UserLists = require("../Models/UsersLists");
 const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 
 module.exports = router;

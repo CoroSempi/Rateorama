@@ -6,7 +6,7 @@ const TVshows = require("../Models/TVshows");
 const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 
 //tvshowsMain--------------------------------------
 router.get("/", async (req, res) => {

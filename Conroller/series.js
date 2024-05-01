@@ -6,7 +6,7 @@ const Series = require("../Models/Series");
 const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
-router.use(express.urlencoded());
+router.use(express.urlencoded({ extended: true }));
 
 //seriesMain--------------------------------------
 router.get("/", async (req, res) => {
