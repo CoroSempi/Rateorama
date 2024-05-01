@@ -49,9 +49,11 @@ app.listen(port, () => {
 });
 
 async function run() {
-  await mongoose.connect(
-    "mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/"
-  );
+  await mongoose
+    .connect(
+      "mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/?retryWrites=true&w=majority&appName=seif"
+    )
+    .then(console.log("hh"));
 }
 //Connect to MongoDB using mongoose(ODM)
 // mongoose
