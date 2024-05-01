@@ -52,6 +52,10 @@ mongoose
     console.log(e.message);
   });
 
+  app.get("/",(req,res)=>{
+    res.status(200).send("finally hello")
+  })
+
 // async function use() {
 //   try {
 //     const hashed = await bcrypt.hash("1234", 10);
