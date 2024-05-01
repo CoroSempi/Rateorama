@@ -34,9 +34,11 @@ app.use("/profile", profile);
 // Middleware for parsing JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.set("views", __dirname + "/views");
-app.set("view engine", "ejs");
 app.use(express.static(__dirname + "public"));
+app.set("views", __dirname + "./views");
+app.set("view engine", "ejs");
+
+
 
 
 let port = 3000 || process.env.PORT;
@@ -56,7 +58,7 @@ async function run() {
 
 app.get("/Admins", (req, res) => {
   try {
-    res.status(200).render("adminSignin.ejs");
+    res.status(200).render("adminSignin");
     return;
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!");
