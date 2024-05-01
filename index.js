@@ -53,6 +53,16 @@ async function run() {
     )
     .then(console.log("hh"));
 }
+
+app.get("/Admins", (req, res) => {
+  try {
+    res.status(200).render("adminSignin.ejs");
+    return;
+  } catch (error) {
+    res.status(400).send("Sorry there is an ERROR!");
+    console.log("ERROR !:" + error.message);
+  }
+});
 //Connect to MongoDB using mongoose(ODM)
 // mongoose
 //   .connect("mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/")

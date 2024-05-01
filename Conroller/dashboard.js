@@ -13,8 +13,6 @@ const Series = require("../Models/Series");
 const TVshows = require("../Models/TVshows");
 const RateBase = require("../Models/RateBase");
 const Comments = require("../Models/Comments");
-const { Console } = require("console");
-
 // Create a Router
 const router = express.Router();
 
@@ -22,8 +20,6 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname, "..//views/dashboard/public")));
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "../views"));
 
 //Admin login
 router.get("/Admins", (req, res) => {
