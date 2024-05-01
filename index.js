@@ -36,6 +36,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "./Views/dashboard/public")));
 app.set("view engine", "ejs");
+app.use("/favicon.ico", express.static("/Views/dashboard/public/pics/logo.png"));
 
 let port = 3000 || process.env.PORT;
 
