@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.5" />
+    <link rel="stylesheet" href="./css/basic.css" />
+    <link rel="stylesheet" href="./css/forms.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700&display=swap" />
+  </head>
+  <style>
+    html {
+      zoom: 50%;
+    }
+  </style>
+  <body>
+    <!-- Vars----------------------------------------------------------------------------------------------------------------------- -->
+    <% var users = users||"0" %>
+    <!--  -->
+    <% var posts = posts||"0" %>
+    <!--  -->
+    <% var movies = movies||"0" %>
+    <!--  -->
+    <% var series = series||"0" %>
+    <!--  -->
+    <% var tvShows = tvShows||"0" %>
+    <!--  -->
+    <% var s = new Date()||"0" %>
+
+    <div class="header">
+      <a href="/dashboard/admins">
+        <img class="logo" alt="RateoramaLogo" src="./pics/logo.png" />
+      </a>
+      <h1 style="font-family: Inter">Dashboard</h1>
+    </div>
+
+    <section class="main">
+      <div class="navbar">
+        <div class="navcomp , selected" id="siteInformation">
+          Site information
+        </div>
+        <div class="navcomp" id="sendMails">Send Mails</div>
+        <div class="navcomp" id="addMovies">Add Movies</div>
+        <div class="navcomp" id="addSeries">Add Series</div>
+        <div class="navcomp" id="addTvShows">Add Tv Shows</div>
+      </div>
+
+      <!-- Site Information----------------------------------------------------------------------------------------------------------------------- -->
+      <div id="infoForm" class="border">
+        <div class="labels">
+          <div class="p">Number of Users</div>
+          <div class="p">Number of Posts</div>
+          <div class="p">Number of Movies</div>
+          <div class="p">Number of Series</div>
+          <div class="p">Number of TV Shows</div>
+          <div class="p">Last Update</div>
+        </div>
+        <div class="stats">
+          <div class="p"><%= users %></div>
+          <div class="p"><%= posts %></div>
+          <div class="p"><%= movies %></div>
+          <div class="p"><%= series %></div>
+          <div class="p"><%= tvShows %></div>
+          <div class="p">
+            <%= s.getDate() + " " + s.getFullYear() + " " + "- " + s.getHours()
+            + ":" + s.getMinutes() %>
+          </div>
+        </div>
+      </div>
+      <!-- sendMails------------------------------------------------------------------------------------------------------------------------- -->
+      <div id="mailsForm" class="none , border">
+        <form id="Email">
+          <div style="margin-top: 60px; margin: buttom 40px" class="pp">
+            Send for
+          </div>
+          <div class="mailss">
+            <div>
+              <ul>
+                <li class="selected" id="selected">
+                  Every One <img src="./pics/Vector.png" />
+                </li>
+                <li class="op , none1" id="every" value="every">Every One</li>
+                <li class="op , none1" id="one" value="one">One User</li>
+              </ul>
+            </div>
+            <input
+              id="mailUser"
+              name="userName"
+              class="none1 , inputf"
+              placeholder="User Name"
+              type="text" />
+          </div>
+          <div style="margin-top: 10px; margin: buttom 20px" class="pp">
+            Mail
+          </div>
+          <textarea
+            class="mail"
+            name="mailwww"
+            placeholder="Write here ...."
+            name="message"
+            rows="10"
+            cols="30"></textarea>
+          <p id="alert" class="none1">User does not exists !!</p>
+          <p id="alert2" class="none1">Please fill all fields !!</p>
+          <p id="done" class="none1 , green">Mail sent successfully !!</p>
+          <div class="buttonss2">
+            <button type="submit" class="button">
+              <div class="buttonText">Send</div>
+            </button>
+            <button type="reset" style="background-color: white" class="button">
+              <div class="buttonText">Clear</div>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Movieform------------------------------------------------------------------------------------------------------------------------- -->
+      <div id="movieForm" class="none , border">
+        <form
+          id="moviesForm"
+          onsubmit="submitForm()"
+          enctype="multipart/form-data">
+          <div class="formNosubmit">
+            <div class="flabels">
+              <div style="margin-top: 10px; margin: buttom 20px" class="pp">
+                Movie Name
+              </div>
+              <div style="margin-top: -20px" class="pp">Release Year</div>
+              <div style="margin-top: -20px" class="pp">Release Date</div>
+              <div style="margin-top: -20px" class="pp">Trailer Link</div>
+              <div style="margin-top: -20px" class="pp">Movie Overview</div>
+              <div style="margin-top: 120px" class="pp">Geners</div>
+              <div style="margin-top: 20px" class="pp">Movie Poster</div>
+              <div style="margin-top: -20px" class="pp">Movie Bg</div>
+              <div style="margin-top: -15px" class="pp">Starter Rate</div>
+              <div style="margin-top: -20px" class="pp">Number of Ratings</div>
+              <div style="margin-top: -20px" class="pp">For Adults</div>
+            </div>
+
+            <div class="inputss">
+              <input
+                name="movieName"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="movieRelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="MdateRelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="date"
+                required />
+              <input
+                name="MtrailerLink"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <textarea
+                name="movieOverview"
+                placeholder="Write here ...."
+                name="message"
+                rows="10"
+                cols="30"
+                required></textarea>
+              <div class="genres">
+                <input type="checkbox" value="Action" class="genres[]" />
+                <label>Action</label>
+                <input type="checkbox" value="Romantic" class="genres[]" />
+                <label>Romantic</label>
+                <input type="checkbox" value="Crime" class="genres[]" />
+                <label>Crime</label>
+                <input type="checkbox" value="Drama" class="genres[]" />
+                <label>Drama</label>
+                <input type="checkbox" value="Comedy" class="genres[]" />
+                <label>Comedy</label>
+                <input type="checkbox" value="Fantasy" class="genres[]" />
+                <label>Fantasy</label>
+                <input type="checkbox" value="Horror" class="genres[]" />
+                <label>Horror</label>
+                <input
+                  type="checkbox"
+                  value="Science Fiction"
+                  class="genres[]" />
+                <label>Science Fiction</label>
+                <input type="checkbox" value="Adventure" class="genres[]" />
+                <label>Adventure</label>
+                <input
+                  type="hidden"
+                  id="selectedGenresInput1"
+                  name="movieGenres"
+                  required />
+              </div>
+
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="moviePoster"
+                required />
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="movieBgPic"
+                required />
+
+              <input
+                class="numbers"
+                type="number"
+                name="movieRate"
+                min="1"
+                max="5"
+                step="0.1" />
+              <input
+                class="numbers"
+                type="number"
+                name="movieRatingsNumber"
+                required />
+
+              <div style="display: flex; margin-top: 7px">
+                <input name="movieAdults" type="checkbox" />
+                <label>+18</label>
+              </div>
+            </div>
+          </div>
+          <p id="Malert" class="green , none1">Movie uploaded successfully!</p>
+          <p id="Malert2" class="none1">Movie already exists !!</p>
+          <div class="buttonss">
+            <button type="submit" class="button">
+              <img class="buttonPic" src="./pics/upload.png" />
+              <div class="buttonText">Upload</div>
+            </button>
+            <button type="reset" style="background-color: white" class="button">
+              <div class="buttonText">Clear</div>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Seriesform------------------------------------------------------------------------------------------------------------------------------- -->
+      <div id="seriesForm" class="none , border">
+        <form
+          id="seriessForm"
+          onsubmit="submitForm()"
+          enctype="multipart/form-data">
+          <div class="formNosubmit">
+            <div class="flabels">
+              <div style="margin-top: 10px; margin: buttom 20px" class="pp">
+                Series Name
+              </div>
+              <div style="margin-top: -20px" class="pp">Release Year</div>
+              <div style="margin-top: -20px" class="pp">Release Date</div>
+              <div style="margin-top: -20px" class="pp">Trailer Link</div>
+              <div style="margin-top: -20px" class="pp">Series Overview</div>
+              <div style="margin-top: 120px" class="pp">Geners</div>
+              <div style="margin-top: 20px" class="pp">Series Poster</div>
+              <div style="margin-top: -20px" class="pp">Series Bg</div>
+              <div style="margin-top: -15px" class="pp">Starter Rate</div>
+              <div style="margin-top: -20px" class="pp">Number of Ratings</div>
+              <div style="margin-top: -20px" class="pp">For Adults</div>
+            </div>
+
+            <div class="inputss">
+              <input
+                name="Sname"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="Srelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="SdateRelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="date"
+                required />
+              <input
+                name="StrailerLink"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <textarea
+                name="Soverview"
+                placeholder="Write here ...."
+                name="message"
+                rows="10"
+                cols="30"
+                required></textarea>
+              <div class="genres">
+                <input type="checkbox" value="Action" class="genres[]" />
+                <label>Action</label>
+                <input type="checkbox" value="Romantic" class="genres[]" />
+                <label>Romantic</label>
+                <input type="checkbox" value="Crime" class="genres[]" />
+                <label>Crime</label>
+                <input type="checkbox" value="Drama" class="genres[]" />
+                <label>Drama</label>
+                <input type="checkbox" value="Comedy" class="genres[]" />
+                <label>Comedy</label>
+                <input type="checkbox" value="Fantasy" class="genres[]" />
+                <label>Fantasy</label>
+                <input type="checkbox" value="Horror" class="genres[]" />
+                <label>Horror</label>
+                <input
+                  type="checkbox"
+                  value="Science Fiction"
+                  class="genres[]" />
+                <label>Science Fiction</label>
+                <input type="checkbox" value="Adventure" class="genres[]" />
+                <label>Adventure</label>
+                <input
+                  type="hidden"
+                  id="selectedGenresInput2"
+                  name="seriesGenres"
+                  required />
+              </div>
+
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="SPoster"
+                required />
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="SbgPic"
+                required />
+
+              <input
+                class="numbers"
+                type="number"
+                name="SRate"
+                min="1"
+                max="5"
+                step="0.1" />
+              <input
+                class="numbers"
+                type="number"
+                name="SRatingsNumber"
+                required />
+
+              <div style="display: flex; margin-top: 7px">
+                <input name="Sadults" type="checkbox" />
+                <label>+18</label>
+              </div>
+            </div>
+          </div>
+          <p id="Salert" class="green , none1">Series uploaded successfully!</p>
+          <p id="Salert2" class="none1">Series already exists !!</p>
+          <div class="buttonss">
+            <button type="submit" class="button">
+              <img class="buttonPic" src="./pics/upload.png" />
+              <div class="buttonText">Upload</div>
+            </button>
+            <button type="reset" style="background-color: white" class="button">
+              <div class="buttonText">Clear</div>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Tvshowsform---------------------------------------------------------------------------------------------------------------------------- -->
+      <div id="tvInfo" class="none , border">
+        <form
+          id="tvshowssForm"
+          onsubmit="submitForm()"
+          enctype="multipart/form-data">
+          <div class="formNosubmit">
+            <div class="flabels">
+              <div style="margin-top: 10px; margin: buttom 20px" class="pp">
+                Tvshow Name
+              </div>
+              <div style="margin-top: -20px" class="pp">Release Year</div>
+              <div style="margin-top: -20px" class="pp">Release Date</div>
+              <div style="margin-top: -20px" class="pp">Trailer Link</div>
+              <div style="margin-top: -20px" class="pp">Tvshow Overview</div>
+              <div style="margin-top: 120px" class="pp">Geners</div>
+              <div style="margin-top: 20px" class="pp">Tvshow Poster</div>
+              <div style="margin-top: -20px" class="pp">Tvshow Bg</div>
+              <div style="margin-top: -15px" class="pp">Starter Rate</div>
+              <div style="margin-top: -20px" class="pp">Number of Ratings</div>
+              <div style="margin-top: -20px" class="pp">For Adults</div>
+            </div>
+            <div class="inputss">
+              <input
+                name="Tname"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="Trelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <input
+                name="RdateRelease"
+                class="inputf"
+                placeholder="Write here ...."
+                type="date"
+                required />
+              <input
+                name="TtrailerLink"
+                class="inputf"
+                placeholder="Write here ...."
+                type="text"
+                required />
+              <textarea
+                name="Toverview"
+                placeholder="Write here ...."
+                name="message"
+                rows="10"
+                cols="30"
+                required></textarea>
+              <div class="genres">
+                <input type="checkbox" value="Action" class="genres[]" />
+                <label>Action</label>
+                <input type="checkbox" value="Romantic" class="genres[]" />
+                <label>Romantic</label>
+                <input type="checkbox" value="Crime" class="genres[]" />
+                <label>Crime</label>
+                <input type="checkbox" value="Drama" class="genres[]" />
+                <label>Drama</label>
+                <input type="checkbox" value="Comedy" class="genres[]" />
+                <label>Comedy</label>
+                <input type="checkbox" value="Fantasy" class="genres[]" />
+                <label>Fantasy</label>
+                <input type="checkbox" value="Horror" class="genres[]" />
+                <label>Horror</label>
+                <input
+                  type="checkbox"
+                  value="Science Fiction"
+                  class="genres[]" />
+                <label>Science Fiction</label>
+                <input type="checkbox" value="Adventure" class="genres[]" />
+                <label>Adventure</label>
+                <input
+                  type="hidden"
+                  id="selectedGenresInput3"
+                  name="tvshowsGenres"
+                  required />
+              </div>
+
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="Tposter"
+                required />
+              <input
+                class="files"
+                type="file"
+                accept="image/*"
+                name="TbgPic"
+                required />
+
+              <input
+                class="numbers"
+                type="number"
+                name="Trate"
+                min="1"
+                max="5"
+                step="0.1" />
+              <input
+                class="numbers"
+                type="number"
+                name="TratingsNumber"
+                required />
+
+              <div style="display: flex; margin-top: 7px">
+                <input name="Tadults" type="checkbox" />
+                <label>+18</label>
+              </div>
+            </div>
+          </div>
+          <p id="Talert" class="green , none1">Tvshow uploaded successfully!</p>
+          <p id="Talert2" class="none1">Tvshow already exists !!</p>
+          <div class="buttonss">
+            <button type="submit" class="button">
+              <img class="buttonPic" src="./pics/upload.png" />
+              <div class="buttonText">Upload</div>
+            </button>
+            <button type="reset" style="background-color: white" class="button">
+              <div class="buttonText">Clear</div>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <script src="./script.js"></script>
+    <script src="./formsJS/emailSubmit.js"></script>
+    <script src="./formsJS/moviesSubmit.js"></script>
+    <script src="./formsJS/seriesSubmit.js"></script>
+    <script src="./formsJS/tvshowsSubmit.js"></script>
+    <script src="./navbar.js"></script>
+
+    <script>
+      function submitForm() {
+        var selectedGenres = [];
+        var checkboxes = document.getElementsByClassName("genres[]");
+        for (var i = 0; i < checkboxes.length; i++) {
+          if (checkboxes[i].checked) {
+            selectedGenres.push(checkboxes[i].value);
+          }
+        }
+
+        // Store the selected genres in a hidden input field
+        document.getElementById("selectedGenresInput1").value = selectedGenres;
+
+        document.getElementById("selectedGenresInput2").value = selectedGenres;
+
+        document.getElementById("selectedGenresInput3").value = selectedGenres;
+      }
+    </script>
+  </body>
+</html>

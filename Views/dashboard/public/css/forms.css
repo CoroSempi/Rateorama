@@ -1,0 +1,205 @@
+.pp {
+  font-size: 23px;
+  color: white;
+  align-self: stretch;
+  height: 46px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.flabels {
+  width: 210px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  gap: 30px;
+}
+.formNosubmit {
+  padding: 15px 0px;
+  gap: 30px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 47px;
+  max-width: 100%;
+}
+.inputss {
+  margin-top: 20px;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 16px;
+  max-width: 100%;
+  z-index: 1;
+}
+.inputf {
+  padding: 0 20px;
+  border-radius: 20px;
+  width: 50%;
+  border: 2px solid #fcc70c;
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 15px;
+  background-color: transparent;
+  height: 40px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+label {
+  color: white;
+  font-size: 20px;
+}
+textarea {
+  padding: 20px 20px;
+  border-radius: 20px;
+  width: 100%;
+  border: 2px solid #fcc70c;
+  font-weight: 600;
+  font-family: Inter;
+  font-size: 15px;
+  background-color: transparent;
+  height: 150px;
+  color: rgba(255, 255, 255, 0.7);
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mail {
+  width: 120%;
+  background-color: white;
+  color: #000;
+}
+.button {
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: #fcc70c;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 78px;
+  min-height: 34px;
+}
+.buttonPic {
+  width: 30px;
+  height: 30px;
+  padding: 0px 4px;
+  bottom: 0px;
+  left: 0px;
+}
+.buttonText {
+  margin: 0px;
+  height: 29px;
+  flex: 1;
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  font-family: Inter;
+  color: #000;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.buttonss {
+  margin-bottom: 20px;
+  margin-top: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 36px;
+  width: 284px;
+  padding: 0px 16px;
+}
+.genres {
+  width: 72%;
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.buttonss2 {
+  margin-bottom: 60px;
+  margin-top: 30px;
+  margin-left: 60px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+  min-height: 36px;
+  width: 284px;
+  padding: 0px 16px;
+}
+
+.mailss {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+ul {
+  list-style-type: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 20px;
+  padding: 0px;
+}
+.none1 {
+  display: none;
+}
+.selected {
+  padding: 7px 40px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #fcc70c;
+  min-width: 130px;
+}
+.op {
+  padding: 7px 40px;
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  background-color: white;
+  min-width: 130px;
+}
+.files {
+  margin-top: 16px;
+  font-size: 20px;
+}
+.numbers {
+  margin-top: 10px;
+  width: 5%;
+  height: 4%;
+  font-size: 20px;
+  font-weight: bold;
+}
+p {
+  color: red;
+  font-size: 20px;
+}
+.green {
+  color: rgb(10, 218, 10);
+}

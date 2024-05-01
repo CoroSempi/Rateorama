@@ -1,0 +1,120 @@
+
+body {
+  margin: 0;
+  line-height: normal;
+  width: 100%;
+  position: relative;
+  background-color: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 55px 228px 148px 55px;
+  box-sizing: border-box;
+  gap: 100px;
+  letter-spacing: normal;
+}
+.header {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 61px;
+}
+h1 {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-size: 64px;
+  font-weight: 700;
+  color: #fcc70c;
+  font-family: inherit;
+  align-items: center;
+  max-width: 100%;
+}
+.logo {
+  height: 124px;
+  width: 160px;
+  position: relative;
+  object-fit: cover;
+}
+.main {
+  display: flex;
+  max-width: 90%;
+  width: 90%;
+  text-align: center;
+  font-size: 25px;
+  color: #fff;
+  font-family: Inter;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px 0px 62px;
+  box-sizing: border-box;
+  position: relative;
+  gap: 61px;
+}
+.navbar {
+  align-self: stretch;
+  justify-content: space-between;
+  display: flex;
+  margin-bottom: 0px;
+}
+.navcomp {
+  flex: 1;
+  border: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 19px;
+  min-width: 200px;
+  margin-bottom: 0px;
+}
+.selected {
+  background-color: #fcc70c;
+  color: black;
+  font-weight: bold;
+}
+.navcomp:hover {
+  background-color: #fcc70c;
+  color: black;
+  cursor: pointer;
+  font-weight: bold;
+}
+.border {
+  border: 2px solid #fcc70c;
+  align-self: stretch;
+  display: flex;
+  padding: 10px 61px;
+  text-align: left;
+  color: #fcc70c;
+  margin-top: -62px;
+}
+.p {
+  align-self: stretch;
+  height: 46px;
+  position: relative;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.labels {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  gap: 30px;
+}
+.stats {
+  color: white;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0px;
+  gap: 30px;
+}
+.none {
+  display: none;
+}

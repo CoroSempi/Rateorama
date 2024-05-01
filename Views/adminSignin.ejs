@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="./css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@600;700;800&display=swap" />
+    <style>
+      html {
+        zoom: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <% var stat = stat||"none" %> <% var stat2 = stat2||"none" %>
+    <div class="main">
+      <div class="head">
+        <img class="logo" alt="Rateorama Logo" src="./pics/logo.png" />
+        <h1 class="title">Sign in</h1>
+      </div>
+      <form action="/dashboard/panal" method="post">
+        <input name="user" class="fields" placeholder="User Name" type="text" />
+        <input
+          name="key"
+          class="fields"
+          placeholder="Admin Key"
+          type="password" />
+        <p class="<%= stat %>">-Please Fill all the Fields</p>
+        <p class="<%= stat2 %>">-Wrong Email or password</p>
+        <button type="submit" id="sign">
+          <div class="buttonText">Sign in</div>
+        </button>
+      </form>
+    </div>
+  </body>
+</html>
