@@ -43,21 +43,27 @@ app.use(
 
 let port = 3000 || process.env.PORT;
 
-// app.listen(port, () => {
-//   console.log(`SERVER RUN ON PORT ${port}`);
-// });
+run();
+app.listen(port, () => {
+  console.log(`SERVER RUN ON PORT ${port}`);
+});
 
+async function run() {
+  await mongoose.connect(
+    "mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/"
+  );
+}
 //Connect to MongoDB using mongoose(ODM)
-mongoose
-  .connect("mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/")
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`SERVER RUN ON PORT ${port}`);
-    });
-  })
-  .catch((e) => {
-    console.log(e.message);
-  });
+// mongoose
+//   .connect("mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/")
+//   .then(() => {
+//     app.listen(port, () => {
+//       console.log(`SERVER RUN ON PORT ${port}`);
+//     });
+//   })
+//   .catch((e) => {
+//     console.log(e.message);
+//   });
 
 app.get("/", (req, res) => {
   res.status(200).send("finally hello");
