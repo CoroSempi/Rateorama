@@ -43,20 +43,21 @@ app.use(
 
 let port = 3000 || process.env.PORT;
 
-app.listen(port, () => {
-  console.log(`SERVER RUN ON PORT ${port}`);
-});
+// app.listen(port, () => {
+//   console.log(`SERVER RUN ON PORT ${port}`);
+// });
+
 //Connect to MongoDB using mongoose(ODM)
-// mongoose
-//   .connect("mongodb://localhost:27017/Rateorama")
-//   .then(() => {
-//     app.listen(port, () => {
-//       console.log(`SERVER RUN ON PORT ${port}`);
-//     });
-//   })
-//   .catch((e) => {
-//     console.log(e.message);
-//   });
+mongoose
+  .connect("mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/")
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`SERVER RUN ON PORT ${port}`);
+    });
+  })
+  .catch((e) => {
+    console.log(e.message);
+  });
 
 app.get("/", (req, res) => {
   res.status(200).send("finally hello");
