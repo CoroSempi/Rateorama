@@ -21,7 +21,7 @@ const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
-router.use(express.static(path.join(__dirname, "../Views/dashboard/public")));
+router.use(express.static(path.join(__dirname, "..//views/dashboard/public")));
 
 //Admin login
 router.get("/Admins", (req, res) => {
