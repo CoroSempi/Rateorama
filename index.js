@@ -4,7 +4,6 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const cors = require("cors");
 
-
 const dashboard = require("./Conroller/dashboard");
 const users = require("./Conroller/users");
 const home = require("./Conroller/home");
@@ -37,7 +36,12 @@ app.use("/profile", profile);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
-app.use(cors());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
