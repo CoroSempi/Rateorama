@@ -13,32 +13,34 @@ tvshows1Form1.addEventListener("submit", function (event) {
   const Toverview = document.getElementsByName("Toverview")[0].value;
   const Tgenres = document.getElementsByName("tvshowsGenres")[0].value;
 
-  const Tposter = document.getElementsByName("Tposter")[0];
-  const TposterFile = Tposter.files[0];
+  const Tposter = document.getElementsByName("Tposter")[0].value;
 
-  const Sbg = document.getElementsByName("TbgPic")[0];
-  const TbgFile = Sbg.files[0];
+  const Tbg = document.getElementsByName("TbgPic")[0].value;
+
 
   const Trate = document.getElementsByName("Trate")[0].value;
   const TratingsNumber = document.getElementsByName("TratingsNumber")[0].value;
   const Tadult = document.getElementsByName("Tadults")[0].checked;
 
-  const TformData = new FormData();
-  TformData.append("Tname", Tname);
-  TformData.append("Trelease", Trelease);
-  TformData.append("Tdate", Tdate);
-  TformData.append("Tlink", Tlink);
-  TformData.append("Toverview", Toverview);
-  TformData.append("Tgenres", Tgenres);
-  TformData.append("Tposter", TposterFile);
-  TformData.append("Tbg", TbgFile);
-  TformData.append("Trate", Trate);
-  TformData.append("TratingsNumber", TratingsNumber);
-  TformData.append("Tadult", Tadult);
-
+    const TformData = {
+      Tname: Tname,
+      Trelease: Trelease,
+      Tdate: Tdate,
+      Tlink: Tlink,
+      Toverview: Toverview,
+      Tgenres: Tgenres,
+      Tposter: Tposter,
+      Tbg: Tbg,
+      Trate: Trate,
+      TratingsNumber: TratingsNumber,
+      Tadult: Tadult,
+    };
   fetch("/dashboard/tvshows", {
     method: "POST",
-    body: TformData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(TformData),
   })
     .then((response) => response.json())
     .then((data) => {

@@ -13,33 +13,35 @@ series1Form1.addEventListener("submit", function (event) {
   const Soverview = document.getElementsByName("Soverview")[0].value;
   const Sgenres = document.getElementsByName("seriesGenres")[0].value;
 
-  const Sposter = document.getElementsByName("SPoster")[0];
-  const SposterFile = Sposter.files[0];
+  const Sposter = document.getElementsByName("SPoster")[0].value;
 
-  const Sbg = document.getElementsByName("SbgPic")[0];
-  const SbgFile = Sbg.files[0];
+  const Sbg = document.getElementsByName("SbgPic")[0].value;
 
   const Srate = document.getElementsByName("SRate")[0].value;
   const SratingsNumber = document.getElementsByName("SRatingsNumber")[0].value;
   const Sadult = document.getElementsByName("Sadults")[0].checked;
 
-  const SformData = new FormData();
-  SformData.append("Sname", Sname);
-  SformData.append("Srelease", Srelease);
-  SformData.append("Sdate", Sdate);
-  SformData.append("Slink", Slink);
-  SformData.append("Soverview", Soverview);
-  SformData.append("Sgenres", Sgenres);
-  SformData.append("Sposter", SposterFile);
-  SformData.append("Sbg", SbgFile);
-  SformData.append("Srate", Srate);
-  SformData.append("SratingsNumber", SratingsNumber);
-  SformData.append("Sadult", Sadult);
+  const SformData = {
+    Sname: Sname,
+    Srelease: Srelease,
+    Sdate: Sdate,
+    Slink: Slink,
+    Soverview: Soverview,
+    Sgenres: Sgenres,
+    Sposter: Sposter,
+    Sbg: Sbg,
+    Srate: Srate,
+    SratingsNumber: SratingsNumber,
+    Sadult: Sadult,
+  };
 
   console.log(SformData);
   fetch("/dashboard/series", {
     method: "POST",
-    body: SformData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(SformData),
   })
     .then((response) => response.json())
     .then((data) => {

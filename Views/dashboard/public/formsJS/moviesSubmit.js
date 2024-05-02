@@ -13,34 +13,35 @@ movie1Form.addEventListener("submit", function (event) {
   const overview = document.getElementsByName("movieOverview")[0].value;
   const genres = document.getElementsByName("movieGenres")[0].value;
 
-  const poster = document.getElementsByName("moviePoster")[0];
-  const posterFile = poster.files[0];
+  const poster = document.getElementsByName("moviePoster")[0].value;
 
-  const bg = document.getElementsByName("movieBgPic")[0];
-  const bgFile = bg.files[0];
+  const bg = document.getElementsByName("movieBgPic")[0].value;
 
   const rate = document.getElementsByName("movieRate")[0].value;
   const ratingsNumber =
     document.getElementsByName("movieRatingsNumber")[0].value;
   const adult = document.getElementsByName("movieAdults")[0].checked;
 
-  const formData = new FormData();
-  formData.append("Mname", Mname);
-  formData.append("release", release);
-  formData.append("date", date);
-  formData.append("link", link);
-  formData.append("overview", overview);
-  formData.append("genres", genres);
-  formData.append("poster", posterFile);
-  formData.append("bg", bgFile);
-  formData.append("rate", rate);
-  formData.append("ratingsNumber", ratingsNumber);
-  formData.append("adult", adult);
-
+  const formData = {
+    Mname: Mname,
+    release: release,
+    date: date,
+    link: link,
+    overview: overview,
+    genres: genres,
+    poster: poster,
+    bg: bg,
+    rate: rate,
+    ratingsNumber: ratingsNumber,
+    adult: adult,
+  };
   console.log(formData);
   fetch("/dashboard/movies", {
     method: "POST",
-    body: formData,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
   })
     .then((response) => response.json())
     .then((data) => {

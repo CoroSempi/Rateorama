@@ -192,134 +192,126 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 // Upload movies route
-router.post(
-  "/movies",
-  upload.fields([{ name: "poster" }, { name: "bg" }]),
-  async (req, res) => {
-    try {
-      let Mname = req.body.Mname;
-      Mname = formatName1(Mname);
-      const releaseYear = req.body.release;
-      const relaseDate = req.body.date;
-      const overview = req.body.overview;
-      let genress = req.body.genres;
-      genress = genress.split(",");
-      const link = req.body.link;
-      const rate = req.body.rate;
-      const ratingsNumber = req.body.ratingsNumber;
-      const adult = req.body.adult === "true";
-      const posterFile = req.files["poster"][0];
-      const bgFile = req.files["bg"][0];
-      const checking = await Movies.findOne({ name: Mname });
-      if (!checking) {
-        const a = await Movies.create({
-          name: Mname.split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "),
-          year: releaseYear,
-          RelaseDate: relaseDate,
-          story: overview,
-          Rate: rate,
-          ratingsNumber: ratingsNumber,
-          poster: posterFile.path,
-          bgPic: bgFile.path,
-          trailerLink: link,
-          genres: genress,
-          forAdults: adult,
-        });
-        const b = await RateBase.create({
-          postID: a._id,
-          name: a.name,
-          rate: rate,
-          numberOfPeople: ratingsNumber,
-        });
-        const c = await Comments.create({ postID: a._id, name: a.name });
-        if (a && b && c) {
-          res.status(200).json("uploaded");
-          console.log(a, b, c);
-          return;
-        }
-      } else {
-        res.status(200).json("failed");
+router.post("/movies", async (req, res) => {
+  try {
+    let Mname = req.body.Mname;
+    Mname = formatName1(Mname);
+    const releaseYear = req.body.release;
+    const relaseDate = req.body.date;
+    const overview = req.body.overview;
+    let genress = req.body.genres;
+    genress = genress.split(",");
+    const link = req.body.link;
+    const rate = req.body.rate;
+    const ratingsNumber = req.body.ratingsNumber;
+    const adult = req.body.adult === "true";
+    const poster = req.body.poster;
+    const bg = req.body.bg;
+    const checking = await Movies.findOne({ name: Mname });
+    console.log(poster);
+    if (!checking) {
+      const a = await Movies.create({
+        name: Mname.split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+        year: releaseYear,
+        RelaseDate: relaseDate,
+        story: overview,
+        Rate: rate,
+        ratingsNumber: ratingsNumber,
+        poster: poster,
+        bgPic: bg,
+        trailerLink: link,
+        genres: genress,
+        forAdults: adult,
+      });
+      const b = await RateBase.create({
+        postID: a._id,
+        name: a.name,
+        rate: rate,
+        numberOfPeople: ratingsNumber,
+      });
+      const c = await Comments.create({ postID: a._id, name: a.name });
+      if (a && b && c) {
+        res.status(200).json("uploaded");
+        console.log(a, b, c);
         return;
       }
-    } catch (error) {
-      res.status(400).json("Sorry, there was an ERROR!:" + error.message);
-      console.log("ERROR: " + error.message);
+    } else {
+      res.status(200).json("failed");
+      return;
     }
+  } catch (error) {
+    res.status(400).json("Sorry, there was an ERROR!:" + error.message);
+    console.log("ERROR: " + error.message);
   }
-);
+});
 
 // Upload series route
-router.post(
-  "/series",
-  upload.fields([{ name: "Sposter" }, { name: "Sbg" }]),
-  async (req, res) => {
-    console.log(req.body.Sname);
-    try {
-      let Sname = req.body.Sname;
-      Sname = formatName1(Sname);
-      const SreleaseYear = req.body.Srelease;
-      const SrelaseDate = req.body.Sdate;
-      const Soverview = req.body.Soverview;
-      let Sgenress = req.body.Sgenres;
-      Sgenress = Sgenress.split(",");
-      const Slink = req.body.Slink;
-      const Srate = req.body.Srate;
-      const SratingsNumber = req.body.SratingsNumber;
-      const Sadult = req.body.Sadult === "true";
-      const SposterFile = req.files["Sposter"][0];
-      const SbgFile = req.files["Sbg"][0];
+router.post("/series", async (req, res) => {
+  try {
+    let Sname = req.body.Sname;
+    Sname = formatName1(Sname);
+    const SreleaseYear = req.body.Srelease;
+    const SrelaseDate = req.body.Sdate;
+    const Soverview = req.body.Soverview;
+    let Sgenress = req.body.Sgenres;
+    Sgenress = Sgenress.split(",");
+    const Slink = req.body.Slink;
+    const Srate = req.body.Srate;
+    const SratingsNumber = req.body.SratingsNumber;
+    const Sadult = req.body.Sadult === "true";
+    const Sposter = req.body.Sposter;
+    const Sbg = req.body.Sbg;
+    console.log(Sbg)
 
-      const checking = await Series.findOne({ name: Sname });
-      console.log(checking);
-      if (!checking) {
-        const a = await Series.create({
-          name: Sname.split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "),
-          year: SreleaseYear,
-          RelaseDate: SrelaseDate,
-          story: Soverview,
-          Rate: Srate,
-          ratingsNumber: SratingsNumber,
-          poster: SposterFile.path,
-          bgPic: SbgFile.path,
-          trailerLink: Slink,
-          genres: Sgenress,
-          forAdults: Sadult,
-        });
-        const b = await RateBase.create({
-          postID: a._id,
-          name: a.name,
-          rate: Srate,
-          numberOfPeople: SratingsNumber,
-        });
-        const c = await Comments.create({ postID: a._id, name: a.name });
-        if (a && b && c) {
-          res.status(200).json("uploaded");
-          console.log(a, b, c);
-          return;
-        }
-        if (a && b && c) {
-          res.status(200).json("uploaded");
-          return;
-        }
-      } else {
-        res.status(200).json("failed");
+    const checking = await Series.findOne({ name: Sname });
+    console.log(checking);
+    if (!checking) {
+      const a = await Series.create({
+        name: Sname.split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+        year: SreleaseYear,
+        RelaseDate: SrelaseDate,
+        story: Soverview,
+        Rate: Srate,
+        ratingsNumber: SratingsNumber,
+        poster: Sposter,
+        bgPic: Sbg,
+        trailerLink: Slink,
+        genres: Sgenress,
+        forAdults: Sadult,
+      });
+      const b = await RateBase.create({
+        postID: a._id,
+        name: a.name,
+        rate: Srate,
+        numberOfPeople: SratingsNumber,
+      });
+      const c = await Comments.create({ postID: a._id, name: a.name });
+      if (a && b && c) {
+        res.status(200).json("uploaded");
+        console.log(a, b, c);
         return;
       }
-    } catch (error) {
-      res.status(400).json("Sorry, there was an ERROR!:" + error.message);
-      console.log("ERROR: " + error.message);
+      if (a && b && c) {
+        res.status(200).json("uploaded");
+        return;
+      }
+    } else {
+      res.status(200).json("failed");
+      return;
     }
+  } catch (error) {
+    res.status(400).json("Sorry, there was an ERROR!:" + error.message);
+    console.log("ERROR: " + error.message);
   }
-);
+});
 
 // Upload tvshows route
 router.post(
   "/tvshows",
-  upload.fields([{ name: "Tposter" }, { name: "Tbg" }]),
   async (req, res) => {
     try {
       let Tname = req.body.Tname;
@@ -333,8 +325,8 @@ router.post(
       const Trate = req.body.Trate;
       const TratingsNumber = req.body.TratingsNumber;
       const Tadult = req.body.Sadult === "true";
-      const TposterFile = req.files["Tposter"][0];
-      const TbgFile = req.files["Tbg"][0];
+      const Tposter = req.body.Tposter;
+      const Tbg = req.body.Tbg;
 
       const checking = await TVshows.findOne({ name: Tname });
       if (!checking) {
@@ -347,8 +339,8 @@ router.post(
           story: Toverview,
           Rate: Trate,
           ratingsNumber: TratingsNumber,
-          poster: TposterFile.path,
-          bgPic: TbgFile.path,
+          poster: Tposter,
+          bgPic: Tbg,
           trailerLink: Tlink,
           genres: Tgenress,
           forAdults: Tadult,
