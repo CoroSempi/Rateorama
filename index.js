@@ -38,9 +38,6 @@ app.use(express.static(__dirname + "/public"));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-
-
-
 let port = 3000 || process.env.PORT;
 
 run();
@@ -78,7 +75,7 @@ app.get("/Admins", (req, res) => {
 //   });
 
 app.get("/", (req, res) => {
-  res.status(200).send("finally hello");
+  res.status(200).send("finally hellooooo");
 });
 
 // async function use() {
