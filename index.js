@@ -37,12 +37,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-
-app.use(cors({origin:"*",}));
+app.use(cors({ origin: "*" }));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 
-let port = 3000 || process.env.PORT;
+let port = process.env.PORT || 3000;
 
 run();
 app.listen(port, () => {
@@ -66,6 +65,11 @@ app.get("/Admins", (req, res) => {
     console.log("ERROR !:" + error.message);
   }
 });
+app.get("/test", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.send("Test route");
+});
+
 //Connect to MongoDB using mongoose(ODM)
 // mongoose
 //   .connect("mongodb+srv://seif:Liverpool6@seif.54v3nl4.mongodb.net/")
@@ -82,36 +86,3 @@ app.get("/", (req, res) => {
   res.status(200).send("finally hellooooo");
 });
 
-// fetch("https://rateorama.vercel.app/HOME/search?keyword=dark")
-//   .then((response) => {
-//     if (!response.ok) {
-//       throw new Error("Network response was not ok");
-//     }
-//     return response.json();
-//   })
-//   .then((data) => {
-//     console.log(data);
-//     console.log(
-//       "========================================================================"
-//     );
-//   })
-//   .catch((error) => {
-//     console.error("There was a problem with the fetch operation:", error);
-//   });
-
-fetch("https://rateorama.vercel.app/home/toprated")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return response.json();
-  })
-  .then((data) => {
-    console.log(data);
-    console.log(
-      "========================================================================"
-    );
-  })
-  .catch((error) => {
-    console.error("There was a problem with the fetch operation:", error);
-  });
