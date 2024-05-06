@@ -32,16 +32,6 @@ app.use("/tvshows", tvshowsRoute);
 app.use("/userlists", userlists);
 app.use("/profile", profile);
 
-// Define a middleware function for CORS
-const allowCors = (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  // Add other CORS headers if needed
-  next();
-};
-
-// Apply the middleware to all routes
-app.use(allowCors);
-
 // Middleware for parsing JSON
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
