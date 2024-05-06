@@ -21,6 +21,7 @@ const Comments = require("./Models/Comments");
 const RateBase = require("./Models/RateBase");
 const UserLists = require("./Models/UsersLists");
 
+app.use(allowCors);
 // Create a Server
 const app = express();
 
@@ -39,7 +40,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
-app.use(allowCors);
 app.use(cors({ origin: "*" }));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
