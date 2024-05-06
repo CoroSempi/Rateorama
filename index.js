@@ -66,7 +66,7 @@ app.get("/Admins", (req, res) => {
   }
 });
 app.get("/test", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "true");
   res.send("Test route");
 });
 
