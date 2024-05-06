@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const cors = require("cors");
 
+const allowCors = require("./Conroller/ss");
+
 const dashboard = require("./Conroller/dashboard");
 const users = require("./Conroller/users");
 const home = require("./Conroller/home");
@@ -37,6 +39,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 
+app.use(allowCors);
 app.use(cors({ origin: "*" }));
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
