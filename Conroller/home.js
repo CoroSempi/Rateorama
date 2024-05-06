@@ -91,6 +91,7 @@ router.get("/movieSlider", async (req, res) => {
   try {
     const result = await Movies.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -103,6 +104,7 @@ router.get("/seriesSlider", async (req, res) => {
   try {
     const result = await Series.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -115,6 +117,7 @@ router.get("/tvshowsSlider", async (req, res) => {
   try {
     const result = await TVshows.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
