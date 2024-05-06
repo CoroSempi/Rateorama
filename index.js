@@ -55,10 +55,6 @@ async function run() {
     )
     .then(console.log("hh"));
 }
-app.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.status(200).send("<h1>Rateorama Server</h1>");
-});
 
 app.get("/Admins", (req, res) => {
   try {
@@ -85,3 +81,7 @@ app.get("/test", (req, res) => {
 //   .catch((e) => {
 //     console.log(e.message);
 //   });
+
+app.get("/", (req, res) => {
+  res.status(200).send("<h1>Rateorama Server</h1>");
+});
