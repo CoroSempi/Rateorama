@@ -4,8 +4,6 @@ const bcrypt = require("bcrypt");
 const path = require("path");
 const cors = require("cors");
 
-const allowCors = require("./Conroller/ss");
-
 const dashboard = require("./Conroller/dashboard");
 const users = require("./Conroller/users");
 const home = require("./Conroller/home");
@@ -21,7 +19,6 @@ const Comments = require("./Models/Comments");
 const RateBase = require("./Models/RateBase");
 const UserLists = require("./Models/UsersLists");
 
-app.use(allowCors);
 // Create a Server
 const app = express();
 
