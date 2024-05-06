@@ -78,6 +78,7 @@ router.get("/theLatest", async (req, res) => {
 
     const result = await TVshows.aggregate(pipeline);
     console.log(result);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -138,6 +139,7 @@ router.get("/search", async (req, res) => {
     // Combine the results
     const searchResults = tvShows.concat(movies, series);
 
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(searchResults);
   } catch (error) {
     console.error("Error searching:", error);
