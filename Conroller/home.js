@@ -41,6 +41,7 @@ router.get("/topRated", async (req, res) => {
     ];
     const result = await TVshows.aggregate(pipeline);
     console.log(result);
+    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -123,7 +124,7 @@ router.get("/tvshowsSlider", async (req, res) => {
 router.get("/search", async (req, res) => {
   try {
     const keyword = req.query.keyword;
-    
+
     const tvShows = await TVshows.find({
       name: { $regex: keyword, $options: "i" },
     });
