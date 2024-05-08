@@ -30,13 +30,13 @@ router.post("/favorites", async (req, res) => {
 
     const userLists = await UserLists.findOne({ userName: username });
     if (userLists) {
-      const Exists = userLists.watchLater.some(
+      const Exists = userLists.favorites.some(
         (content) =>
           content.category === data.category &&
           content.contentID.equals(data.contentID)
       );
       if (Exists) {
-        res.status(400).send("Movie already exists in the watch later list.");
+        res.status(400).send("Movie already exists in the favorites list.");
         return;
       }
       if (
@@ -87,7 +87,7 @@ router.get("/favorites", async (req, res) => {
           console.log("Movie found:", favs);
         }
       }
-      res.status.json(favs);
+      res.status(200).json(favs);
       return;
     } else {
       res.status(404).send("UserLists not found for the provided username");
