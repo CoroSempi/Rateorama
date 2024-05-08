@@ -12,6 +12,7 @@ const seriesRoute = require("./Conroller/series");
 const tvshowsRoute = require("./Conroller/tvshows");
 const userlists = require("./Conroller/userlists");
 const profile = require("./Conroller/profile");
+const content = require("./Conroller/content");
 // Rateorama Schemes(models)
 const Users = require("./Models/Users");
 const Mails = require("./Models/Mails");
@@ -30,6 +31,7 @@ app.use("/series", seriesRoute);
 app.use("/tvshows", tvshowsRoute);
 app.use("/userlists", userlists);
 app.use("/profile", profile);
+app.use("/content", content);
 
 // Middleware for parsing JSON
 app.use(express.json());
