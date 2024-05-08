@@ -7,7 +7,14 @@ const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+// Middleware to set headers
+const setHeadersMiddleware = (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+};
 
+// Apply middleware to the whole route
+router.use(setHeadersMiddleware);
 //moviesMain--------------------------------------
 router.get("/", async (req, res) => {
   try {
@@ -34,7 +41,7 @@ router.get("/", async (req, res) => {
 //topRated--------------------------------------
 router.get("/topRated", async (req, res) => {
   try {
-    const result = await Movies.find().sort({Rate:-1}).limit(5);
+    const result = await Movies.find().sort({ Rate: -1 }).limit(5);
     res.status(200).json(result);
     return;
   } catch (error) {
