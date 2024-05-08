@@ -12,6 +12,13 @@ const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+// Middleware to set headers
+const setHeadersMiddleware = (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+};
+// Apply middleware to the whole route
+router.use(setHeadersMiddleware);
 
 // topRated route--------------------------------------------
 router.get("/topRated", async (req, res) => {
@@ -41,7 +48,6 @@ router.get("/topRated", async (req, res) => {
     ];
     const result = await TVshows.aggregate(pipeline);
     console.log(result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -78,7 +84,6 @@ router.get("/theLatest", async (req, res) => {
 
     const result = await TVshows.aggregate(pipeline);
     console.log(result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -91,7 +96,6 @@ router.get("/movieSlider", async (req, res) => {
   try {
     const result = await Movies.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -104,7 +108,6 @@ router.get("/seriesSlider", async (req, res) => {
   try {
     const result = await Series.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -117,7 +120,6 @@ router.get("/tvshowsSlider", async (req, res) => {
   try {
     const result = await TVshows.find().sort({ Rate: -1 }).limit(20);
     console.log(result);
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(result);
   } catch (error) {
     res.status(400).send("Sorry there is an ERROR!" + error.message);
@@ -142,7 +144,6 @@ router.get("/search", async (req, res) => {
     // Combine the results
     const searchResults = tvShows.concat(movies, series);
 
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(200).json(searchResults);
   } catch (error) {
     console.error("Error searching:", error);

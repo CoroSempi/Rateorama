@@ -12,7 +12,6 @@ const setHeadersMiddleware = (req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 };
-
 // Apply middleware to the whole route
 router.use(setHeadersMiddleware);
 //moviesMain--------------------------------------

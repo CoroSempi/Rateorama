@@ -1,7 +1,5 @@
 const express = require("express");
-
 // Rateorama Schemes(models)
-
 const Users = require("../Models/Users");
 const Movies = require("../Models/Movies");
 const Series = require("../Models/Series");
@@ -13,6 +11,14 @@ const router = express.Router();
 // Middleware for parsing JSON
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
+
+// Middleware to set headers
+const setHeadersMiddleware = (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+};
+// Apply middleware to the whole route
+router.use(setHeadersMiddleware);
 
 //Details route
 router.get("/details", async (req, res) => {
@@ -36,16 +42,14 @@ router.get("/details", async (req, res) => {
           response = "no such a content with this id or category try again";
           break;
       }
-      res.setHeader("Access-Control-Allow-Origin", "*");
+
       res.status(200).json(response);
       return;
     } else {
-      res.setHeader("Access-Control-Allow-Origin", "*");
       res.status(400).send("Both id and category parameters are required.");
       return;
     }
   } catch (error) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(400).send("Sorry there is an ERROR!");
     console.log("ERROR !:" + error.message);
     return;
@@ -60,21 +64,17 @@ router.get("/comments", async (req, res) => {
     if (id) {
       response = await Comments.find({ postID: id });
       if (response) {
-        res.setHeader("Access-Control-Allow-Origin", "*");
         res.status(200).json(response);
         return;
       } else {
-        res.setHeader("Access-Control-Allow-Origin", "*");
         res.status(200).json("no such a content with this id");
         return;
       }
     } else {
-      res.setHeader("Access-Control-Allow-Origin", "*");
       res.status(400).send("id is required.");
       return;
     }
   } catch (error) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     res.status(400).send("Sorry there is an ERROR!");
     console.log("ERROR !:" + error.message);
   }

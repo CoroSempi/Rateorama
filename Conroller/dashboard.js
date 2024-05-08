@@ -21,6 +21,14 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname, "..//views/dashboard/public")));
 
+// Middleware to set headers
+const setHeadersMiddleware = (req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+};
+// Apply middleware to the whole route
+router.use(setHeadersMiddleware);
+
 //Admin login
 router.get("/Admins", (req, res) => {
   try {
@@ -263,7 +271,7 @@ router.post("/series", async (req, res) => {
     const Sadult = req.body.Sadult === "true";
     const Sposter = req.body.Sposter;
     const Sbg = req.body.Sbg;
-    console.log(Sbg)
+    console.log(Sbg);
 
     const checking = await Series.findOne({ name: Sname });
     console.log(checking);
@@ -310,62 +318,59 @@ router.post("/series", async (req, res) => {
 });
 
 // Upload tvshows route
-router.post(
-  "/tvshows",
-  async (req, res) => {
-    try {
-      let Tname = req.body.Tname;
-      Tname = formatName1(Tname);
-      const TreleaseYear = req.body.Trelease;
-      const TrelaseDate = req.body.Tdate;
-      const Toverview = req.body.Toverview;
-      let Tgenress = req.body.Tgenres;
-      Tgenress = Tgenress.split(",");
-      const Tlink = req.body.Tlink;
-      const Trate = req.body.Trate;
-      const TratingsNumber = req.body.TratingsNumber;
-      const Tadult = req.body.Sadult === "true";
-      const Tposter = req.body.Tposter;
-      const Tbg = req.body.Tbg;
+router.post("/tvshows", async (req, res) => {
+  try {
+    let Tname = req.body.Tname;
+    Tname = formatName1(Tname);
+    const TreleaseYear = req.body.Trelease;
+    const TrelaseDate = req.body.Tdate;
+    const Toverview = req.body.Toverview;
+    let Tgenress = req.body.Tgenres;
+    Tgenress = Tgenress.split(",");
+    const Tlink = req.body.Tlink;
+    const Trate = req.body.Trate;
+    const TratingsNumber = req.body.TratingsNumber;
+    const Tadult = req.body.Sadult === "true";
+    const Tposter = req.body.Tposter;
+    const Tbg = req.body.Tbg;
 
-      const checking = await TVshows.findOne({ name: Tname });
-      if (!checking) {
-        const a = await TVshows.create({
-          name: Tname.split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(" "),
-          year: TreleaseYear,
-          RelaseDate: TrelaseDate,
-          story: Toverview,
-          Rate: Trate,
-          ratingsNumber: TratingsNumber,
-          poster: Tposter,
-          bgPic: Tbg,
-          trailerLink: Tlink,
-          genres: Tgenress,
-          forAdults: Tadult,
-        });
-        const b = await RateBase.create({
-          postID: a._id,
-          name: a.name,
-          rate: Trate,
-          numberOfPeople: TratingsNumber,
-        });
-        const c = await Comments.create({ postID: a._id, name: a.name });
-        if (a && b && c) {
-          res.status(200).json("uploaded");
-          console.log(a, b, c);
-          return;
-        }
-      } else {
-        res.status(200).json("failed");
+    const checking = await TVshows.findOne({ name: Tname });
+    if (!checking) {
+      const a = await TVshows.create({
+        name: Tname.split(" ")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
+        year: TreleaseYear,
+        RelaseDate: TrelaseDate,
+        story: Toverview,
+        Rate: Trate,
+        ratingsNumber: TratingsNumber,
+        poster: Tposter,
+        bgPic: Tbg,
+        trailerLink: Tlink,
+        genres: Tgenress,
+        forAdults: Tadult,
+      });
+      const b = await RateBase.create({
+        postID: a._id,
+        name: a.name,
+        rate: Trate,
+        numberOfPeople: TratingsNumber,
+      });
+      const c = await Comments.create({ postID: a._id, name: a.name });
+      if (a && b && c) {
+        res.status(200).json("uploaded");
+        console.log(a, b, c);
         return;
       }
-    } catch (error) {
-      res.status(400).json("Sorry, there was an ERROR!:" + error.message);
-      console.log("ERROR: " + error.message);
+    } else {
+      res.status(200).json("failed");
+      return;
     }
+  } catch (error) {
+    res.status(400).json("Sorry, there was an ERROR!:" + error.message);
+    console.log("ERROR: " + error.message);
   }
-);
+});
 
 module.exports = router;
