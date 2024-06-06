@@ -20,6 +20,38 @@ const setHeadersMiddleware = (req, res, next) => {
 // Apply middleware to the whole route
 router.use(setHeadersMiddleware);
 
+router.get("/favorites", async (req, res) => {
+  try {
+    const userName = req.query.username;
+    const userLists = await UserLists.findOne({ userName });
+    if (userLists) {
+      const { favorites, watchLater } = userLists;
+      console.log("Favorites:", favorites);
+      const favs = [];
+
+      for (const item of favorites) {
+        const { category, contentID } = item;
+        const content =
+          (await Movies.findOne({ category, _id: contentID })) ||
+          (await Series.findOne({ category, _id: contentID })) ||
+          (await TVshows.findOne({ category, _id: contentID }));
+        if (content) {
+          favs.push(content);
+          console.log("Movie found:", favs);
+        }
+      }
+      res.status(200).json(favs);
+      return;
+    } else {
+      res.status(404).send("UserLists not found for the provided username");
+      return;
+    }
+  } catch (error) {
+    res.status(400).send("Sorry there is an ERROR!" + error.message);
+    console.log("ERROR !:" + error.message);
+  }
+});
+
 router.post("/favorites", async (req, res) => {
   try {
     const username = req.body.username;
@@ -67,30 +99,42 @@ router.post("/favorites", async (req, res) => {
   }
 });
 
-router.get("/favorites", async (req, res) => {
+router.delete("/favorites", async (req, res) => {
   try {
-    const userName = req.query.username;
-    const userLists = await UserLists.findOne({ userName });
-    if (userLists) {
-      const { favorites, watchLater } = userLists;
-      console.log("Favorites:", favorites);
-      const favs = [];
+    const username = req.body.username;
+    const data = {
+      category: req.body.category,
+      contentID: new mongoose.Types.ObjectId(req.body.contentID),
+    };
 
-      for (const item of favorites) {
-        const { category, contentID } = item;
-        const content =
-          (await Movies.findOne({ category, _id: contentID })) ||
-          (await Series.findOne({ category, _id: contentID })) ||
-          (await TVshows.findOne({ category, _id: contentID }));
-        if (content) {
-          favs.push(content);
-          console.log("Movie found:", favs);
-        }
+    const userLists = await UserLists.findOne({ userName: username });
+    if (userLists) {
+      const contentIndex = userLists.favorites.findIndex(
+        (content) =>
+          content.category === data.category &&
+          content.contentID.equals(data.contentID)
+      );
+      if (contentIndex === -1) {
+        res.status(404).send("Content not found in the favorites list.");
+        return;
       }
-      res.status(200).json(favs);
-      return;
+      userLists.favorites.splice(contentIndex, 1);
+      const updatedUserLists = await userLists.save();
+      if (updatedUserLists) {
+        res.status(200).json(updatedUserLists);
+        return;
+      } else {
+        res
+          .status(400)
+          .send("Something went wrong while deleting the content.");
+        return;
+      }
     } else {
-      res.status(404).send("UserLists not found for the provided username");
+      res
+        .status(404)
+        .send(
+          "UserLists not found for the provided username or category is wrong"
+        );
       return;
     }
   } catch (error) {
@@ -99,6 +143,8 @@ router.get("/favorites", async (req, res) => {
   }
 });
 
+// ==================================================================================================
+// =======================================================================================
 router.post("/watchLater", async (req, res) => {
   try {
     const username = req.body.username;
@@ -166,6 +212,50 @@ router.get("/watchLater", async (req, res) => {
       return;
     } else {
       res.status(404).send("UserLists not found for the provided username");
+      return;
+    }
+  } catch (error) {
+    res.status(400).send("Sorry there is an ERROR!" + error.message);
+    console.log("ERROR !:" + error.message);
+  }
+});
+
+router.delete("/watchLater", async (req, res) => {
+  try {
+    const username = req.body.username;
+    const data = {
+      category: req.body.category,
+      contentID: new mongoose.Types.ObjectId(req.body.contentID),
+    };
+
+    const userLists = await UserLists.findOne({ userName: username });
+    if (userLists) {
+      const contentIndex = userLists.watchLater.findIndex(
+        (content) =>
+          content.category === data.category &&
+          content.contentID.equals(data.contentID)
+      );
+      if (contentIndex === -1) {
+        res.status(404).send("Content not found in the watchLater list.");
+        return;
+      }
+      userLists.watchLater.splice(contentIndex, 1);
+      const updatedUserLists = await userLists.save();
+      if (updatedUserLists) {
+        res.status(200).json(updatedUserLists);
+        return;
+      } else {
+        res
+          .status(400)
+          .send("Something went wrong while deleting the content.");
+        return;
+      }
+    } else {
+      res
+        .status(404)
+        .send(
+          "UserLists not found for the provided username or category is wrong"
+        );
       return;
     }
   } catch (error) {

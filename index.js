@@ -14,6 +14,7 @@ const userlists = require("./Conroller/userlists");
 const profile = require("./Conroller/profile");
 const content = require("./Conroller/content");
 const comment = require('./Conroller/comments') 
+const rating = require("./Conroller/Rating")
 // Rateorama Schemes(models)
 const Users = require("./Models/Users");
 const Mails = require("./Models/Mails");
@@ -34,6 +35,7 @@ app.use("/userlists", userlists);
 app.use("/profile", profile);
 app.use("/content", content);
 app.use("/comments", comment);
+app.use("/rating", rating);
 
 // Middleware for parsing JSON
 app.use(express.json());
