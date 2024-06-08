@@ -21,19 +21,19 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 router.use(express.static(path.join(__dirname, "..//views/dashboard/public")));
 
-// Middleware to set headers
-const setHeadersMiddleware = (req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Content-Type", "application/json");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, PUT, DELETE, OPTIONS"
-  );
-  next();
-};
-// Apply middleware to the whole route
-router.use(setHeadersMiddleware);
+// // Middleware to set headers
+// const setHeadersMiddleware = (req, res, next) => {
+//   res.setHeader("Access-Control-Allow-Origin", "*");
+//   res.setHeader("Content-Type", "application/json");
+//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+//   res.setHeader(
+//     "Access-Control-Allow-Methods",
+//     "GET, POST, PUT, DELETE, OPTIONS"
+//   );
+//   next();
+// };
+// // Apply middleware to the whole route
+// router.use(setHeadersMiddleware);
 
 //Admin login
 router.get("/Admins", (req, res) => {

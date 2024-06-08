@@ -41,20 +41,20 @@ const subSchema = new mongoose.Schema({
   },
 });
 
-subSchema.pre("save", function (next) {
-  this.timestamp =
-    s.getDate() +
-    " " +
-    months[s.getMonth()] +
-    " " +
-    s.getFullYear() +
-    " " +
-    "- " +
-    s.getHours() +
-    ":" +
-    s.getMinutes();
-  next();
-});
+// subSchema.pre("save", function (next) {
+//   this.timestamp =
+//     s.getDate() +
+//     " " +
+//     months[s.getMonth()] +
+//     " " +
+//     s.getFullYear() +
+//     " " +
+//     "- " +
+//     s.getHours() +
+//     ":" +
+//     s.getMinutes();
+//   next();
+// });
 
 const Comments = new mongoose.Schema({
   postID: {
