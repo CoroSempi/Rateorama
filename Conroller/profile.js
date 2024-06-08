@@ -1,4 +1,5 @@
 const express = require("express");
+const mongoose = require("mongoose");
 
 // Rateorama Schemes(models)
 const UserLists = require("../Models/UsersLists");
@@ -43,6 +44,34 @@ router.get("/mails", async (req, res) => {
   }
 });
 
+router.get("/clickMails", async (req, res) => {
+  try {
+    const username = req.query.username;
+    const mailid = req.query.mID;
+
+    const mails = await Mails.findOne({ userName: username });
+
+    if (!username || !mails) {
+      res.status(200).json("fill username field correctly or user not found!");
+      return;
+    }
+    const mail = mails.usermails.find((m) => m._id.toString() === mailid);
+    if (mail) {
+      if (mail.seen === false) {
+        mail.seen = true;
+        mails.save();
+        res.status(200).json(mail.seen);
+      } else {
+        res.status(200).json(mail.seen);
+      }
+    } else {
+      res.status(404).json("Mail not found");
+    }
+  } catch (error) {
+    res.status(400).send("Sorry there is an ERROR!" + error.message);
+    console.log("ERROR !:" + error.message);
+  }
+});
 router.get("/favorites", async (req, res) => {
   try {
     const userName = req.query.username;
